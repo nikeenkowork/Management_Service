@@ -1,0 +1,23 @@
+<h1>
+    {% if object %}
+        Изменить получателя
+    {% else %}
+        Создать получателя
+    {% endif %}
+</h1>
+
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">
+        Сохранить
+    </button>
+</form>
+
+
+<a href="{% url 'clients:list' %}">
+    Назад к списку
+</a>

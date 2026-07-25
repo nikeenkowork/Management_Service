@@ -1,0 +1,17 @@
+<h1>Получатели</h1>
+
+<a href="{% url 'clients:create' %}">
+    Добавить получателя
+</a>
+
+
+<ul>
+    {% for recipient in object_list %}
+        <li>
+            {{ recipient.full_name }}
+            {{ recipient.email }}
+        </li>
+    {% empty %}
+        <li>Получателей нет</li>
+    {% endfor %}
+</ul>

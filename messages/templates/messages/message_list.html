@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Сообщения</h1>
+
+<a href="{% url 'messages:create' %}">
+    Создать сообщение
+</a>
+
+<hr>
+
+<table>
+    <tr>
+        <th>Тема</th>
+        <th>Владелец</th>
+        <th>Действия</th>
+    </tr>
+
+    {% for message in object_list %}
+    <tr>
+        <td>
+            <a href="{% url 'messages:detail' message.pk %}">
+                {{ message.subject }}
+            </a>
+        </td>
+
+        <td>
+            {{ message.owner }}
+        </td>
+
+        <td>
+            <a href="{% url 'messages:update' message.pk %}">
+                Изменить
+            </a>
+
+            |
+
+            <a href="{% url 'messages:delete' message.pk %}">
+                Удалить
+            </a>
+        </td>
+    </tr>
+
+    {% empty %}
+
+    <tr>
+        <td colspan="3">
+            Сообщений нет
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        Management Service
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+
+<header>
+    <h1>Сервис управления рассылками</h1>
+
+    <nav>
+        <a href="{% url 'clients:list' %}">
+            Клиенты
+        </a>
+
+        <a href="{% url 'messages:list' %}">
+            Сообщения
+        </a>
+    </nav>
+
+    <hr>
+</header>
+
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+
+</body>
+</html>

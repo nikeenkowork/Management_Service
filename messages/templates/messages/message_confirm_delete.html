@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h1>
+    Удаление сообщения
+</h1>
+
+
+<p>
+    Вы действительно хотите удалить:
+</p>
+
+
+<h3>
+    "{{ object.subject }}"
+</h3>
+
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <button type="submit">
+        Да, удалить
+    </button>
+
+</form>
+
+
+<a href="{% url 'messages:list' %}">
+    Отмена
+</a>
+
+
+{% endblock %}

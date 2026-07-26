@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+    {{ object.subject }}
+</h1>
+
+
+<p>
+    <strong>Владелец:</strong>
+
+    {{ object.owner }}
+</p>
+
+
+<p>
+    <strong>Текст сообщения:</strong>
+</p>
+
+
+<p>
+    {{ object.body }}
+</p>
+
+
+<hr>
+
+
+<a href="{% url 'messages:update' object.pk %}">
+    Изменить
+</a>
+
+
+<a href="{% url 'messages:delete' object.pk %}">
+    Удалить
+</a>
+
+
+<a href="{% url 'messages:list' %}">
+    К списку
+</a>
+
+
+{% endblock %}

@@ -1,17 +1,120 @@
-<h1>Получатели</h1>
-
-<a href="{% url 'clients:create' %}">
-    Добавить получателя
-</a>
+{% extends "base.html" %}
 
 
-<ul>
-    {% for recipient in object_list %}
-        <li>
-            {{ recipient.full_name }}
-            {{ recipient.email }}
-        </li>
-    {% empty %}
-        <li>Получателей нет</li>
-    {% endfor %}
-</ul>
+{% block title %}
+Клиенты
+{% endblock %}
+
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>
+        Клиенты
+    </h2>
+
+
+    <a href="{% url 'clients:create' %}"
+       class="btn btn-success">
+        + Добавить клиента
+    </a>
+
+</div>
+
+
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+
+        <table class="table table-striped table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>Email</th>
+                    <th>Имя</th>
+                    <th>Комментарий</th>
+                    <th>Владелец</th>
+                    <th>Действия</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+            {% for client in object_list %}
+
+                <tr>
+
+                    <td>
+                        {{ client.email }}
+                    </td>
+
+
+                    <td>
+                        {{ client.full_name }}
+                    </td>
+
+
+                    <td>
+                        {{ client.comment }}
+                    </td>
+
+
+                    <td>
+                        {{ client.owner }}
+                    </td>
+
+
+                    <td>
+
+                        <a href="{% url 'clients:update' client.pk %}"
+                           class="btn btn-primary btn-sm">
+                            Изменить
+                        </a>
+
+
+                        <a href="{% url 'clients:delete' client.pk %}"
+                           class="btn btn-danger btn-sm">
+                            Удалить
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+            {% empty %}
+
+                <tr>
+
+                    <td colspan="5"
+                        class="text-center">
+
+                        Клиентов пока нет
+
+                    </td>
+
+                </tr>
+
+
+            {% endfor %}
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}

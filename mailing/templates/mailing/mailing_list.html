@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Рассылки</h1>
+
+<a href="{% url 'mailing:create' %}">
+    Создать рассылку
+</a>
+
+<hr>
+
+{% for mailing in mailings %}
+
+<div>
+    <h3>
+        Рассылка №{{ mailing.id }}
+    </h3>
+
+    <p>
+        Начало:
+        {{ mailing.start_time }}
+    </p>
+
+    <p>
+        Окончание:
+        {{ mailing.end_time }}
+    </p>
+
+    <p>
+        Статус:
+        {{ mailing.status }}
+    </p>
+
+    <a href="{% url 'mailing:detail' mailing.pk %}">
+        Подробнее
+    </a>
+
+    <a href="{% url 'mailing:update' mailing.pk %}">
+        Изменить
+    </a>
+
+    <a href="{% url 'mailing:delete' mailing.pk %}">
+        Удалить
+    </a>
+
+</div>
+
+<hr>
+
+{% empty %}
+
+<p>
+    Рассылок пока нет.
+</p>
+
+{% endfor %}
+
+{% endblock %}

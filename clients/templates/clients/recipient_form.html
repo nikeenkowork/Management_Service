@@ -1,23 +1,101 @@
-<h1>
-    {% if object %}
-        Изменить получателя
-    {% else %}
-        Создать получателя
-    {% endif %}
-</h1>
+{% extends "base.html" %}
 
 
-<form method="post">
-    {% csrf_token %}
-
-    {{ form.as_p }}
-
-    <button type="submit">
-        Сохранить
-    </button>
-</form>
+{% block title %}
+Создание клиента
+{% endblock %}
 
 
-<a href="{% url 'clients:list' %}">
-    Назад к списку
-</a>
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+
+
+        <div class="card shadow-sm">
+
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    {% if object %}
+                        Редактирование клиента
+                    {% else %}
+                        Создание клиента
+                    {% endif %}
+                </h4>
+            </div>
+
+
+            <div class="card-body">
+
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        {{ form.email }}
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Имя
+                        </label>
+
+                        {{ form.full_name }}
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Комментарий
+                        </label>
+
+                        {{ form.comment }}
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-between">
+
+
+                        <a href="{% url 'clients:list' %}"
+                           class="btn btn-secondary">
+                            Назад
+                        </a>
+
+
+                        <button type="submit"
+                                class="btn btn-success">
+                            Сохранить
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}

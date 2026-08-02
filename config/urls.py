@@ -32,7 +32,17 @@ urlpatterns = [
     ),
 
     path(
+        "mail_messages/",
+        include("mail_messages.urls")
+    ),
+
+    path(
+        "mailing/",
+        include("mailing.urls")
+    ),
+
+    path(
         "",
-        RedirectView.as_view(url="/clients/")
+        RedirectView.as_view(url="/mailing/")
     ),
 ]

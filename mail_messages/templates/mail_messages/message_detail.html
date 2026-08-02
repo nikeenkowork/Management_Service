@@ -9,7 +9,6 @@
 
 <p>
     <strong>Владелец:</strong>
-
     {{ object.owner }}
 </p>
 
@@ -27,17 +26,17 @@
 <hr>
 
 
-<a href="{% url 'messages:update' object.pk %}">
+<a href="{% url 'mail_messages:update' object.pk %}">
     Изменить
 </a>
 
 
-<a href="{% url 'messages:delete' object.pk %}">
+<a href="{% url 'mail_messages:delete' object.pk %}">
     Удалить
 </a>
 
 
-<a href="{% url 'messages:list' %}">
+<a href="{% url 'mail_messages:list' %}">
     К списку
 </a>
 

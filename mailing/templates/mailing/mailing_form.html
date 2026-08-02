@@ -3,11 +3,11 @@
 {% block content %}
 
 <h1>
-    {% if object %}
-        Редактирование сообщения
-    {% else %}
-        Создание сообщения
-    {% endif %}
+{% if object %}
+    Редактирование рассылки
+{% else %}
+    Создание рассылки
+{% endif %}
 </h1>
 
 
@@ -15,7 +15,9 @@
 
     {% csrf_token %}
 
+
     {{ form.as_p }}
+
 
     <button type="submit">
         Сохранить
@@ -24,8 +26,8 @@
 </form>
 
 
-<a href="{% url 'messages:list' %}">
-    Назад
+<a href="{% url 'mailing:list' %}">
+    Отмена
 </a>
 
 

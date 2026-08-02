@@ -8,7 +8,7 @@ from .views import (
     MessageDeleteView,
 )
 
-app_name = "messages"
+app_name = "mail_messages"
 
 urlpatterns = [
     path("", MessageListView.as_view(), name="list"),

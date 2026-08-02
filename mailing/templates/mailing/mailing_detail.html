@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+    Рассылка №{{ mailing.id }}
+</h1>
+
+
+<p>
+    Статус:
+    <strong>
+        {{ mailing.status }}
+    </strong>
+</p>
+
+
+<p>
+    Начало:
+    {{ mailing.start_time }}
+</p>
+
+
+<p>
+    Окончание:
+    {{ mailing.end_time }}
+</p>
+
+
+<h3>
+    Сообщение
+</h3>
+
+<p>
+    Тема:
+    {{ mailing.message.subject }}
+</p>
+
+<p>
+    {{ mailing.message.body }}
+</p>
+
+
+<h3>
+    Получатели
+</h3>
+
+
+<ul>
+
+{% for recipient in mailing.recipients.all %}
+
+<li>
+    {{ recipient.email }}
+    -
+    {{ recipient.full_name }}
+</li>
+
+{% empty %}
+
+<li>
+    Получателей нет
+</li>
+
+{% endfor %}
+
+</ul>
+
+
+<a href="{% url 'mailing:update' mailing.pk %}">
+    Редактировать
+</a>
+
+
+<a href="{% url 'mailing:delete' mailing.pk %}">
+    Удалить
+</a>
+
+
+<a href="{% url 'mailing:list' %}">
+    Назад
+</a>
+
+
+{% endblock %}

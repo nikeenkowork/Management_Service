@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="mb-4">Сообщения</h1>
+
+
+<table class="table table-striped table-hover">
+
+    <thead class="table-dark">
+        <tr>
+            <th>Тема</th>
+            <th>Владелец</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+
+    {% for msg in object_list %}
+
+        <tr>
+
+            <td>
+                <a href="{% url 'mail_messages:detail' msg.pk %}">
+                    {{ msg.subject }}
+                </a>
+            </td>
+
+
+            <td>
+                {{ msg.owner }}
+            </td>
+
+
+            <td>
+
+                <a class="btn btn-primary btn-sm"
+                   href="{% url 'mail_messages:update' msg.pk %}">
+                    Изменить
+                </a>
+
+
+                <a class="btn btn-danger btn-sm"
+                   href="{% url 'mail_messages:delete' msg.pk %}">
+                    Удалить
+                </a>
+
+            </td>
+
+        </tr>
+
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+
+<a class="btn btn-success"
+   href="{% url 'mail_messages:create' %}">
+    Создать сообщение
+</a>
+
+
+{% endblock %}

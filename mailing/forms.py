@@ -5,7 +5,6 @@ from .models import Mailing
 
 
 class MailingForm(forms.ModelForm):
-
     class Meta:
         model = Mailing
 
@@ -16,23 +15,30 @@ class MailingForm(forms.ModelForm):
             "recipients",
         )
 
+        localized_fields = (
+            "start_time",
+            "end_time",
+        )
+
         widgets = {
             "start_time": forms.DateTimeInput(
+                format="%Y-%m-%dT%H:%M",
                 attrs={
-                    "type": "datetime-local"
-                }
+                    "type": "datetime-local",
+                },
             ),
 
             "end_time": forms.DateTimeInput(
+                format="%Y-%m-%dT%H:%M",
                 attrs={
-                    "type": "datetime-local"
-                }
+                    "type": "datetime-local",
+                },
             ),
 
             "recipients": forms.SelectMultiple(
                 attrs={
-                    "class": "form-control"
-                }
+                    "class": "form-control",
+                },
             ),
         }
 

@@ -6,6 +6,8 @@ from .views import (
     MailingCreateView,
     MailingUpdateView,
     MailingDeleteView,
+    start_mailing,
+    home,
 )
 
 
@@ -42,4 +44,14 @@ urlpatterns = [
         MailingDeleteView.as_view(),
         name="delete",
     ),
+
+    path(
+        "<int:pk>/send/",
+        start_mailing,
+        name="send"
+    ),
+
+    path("",
+         home,
+         name="home"),
 ]

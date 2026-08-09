@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "clients",
     "mail_messages.apps.MessagesConfig",
     "mailing",
+    "users",
 ]
 
 
@@ -124,7 +125,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
@@ -141,4 +141,10 @@ EMAIL_HOST_USER = "nikeenko89@gmail.com"
 EMAIL_HOST_PASSWORD = "wwor qjng xsde vhkz"
 
 TIME_ZONE = "Europe/Prague"
-USE_TZ = True
+
+AUTH_USER_MODEL = "users.User"
+
+# Authentication redirects
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/mailing/"
+LOGOUT_REDIRECT_URL = "/users/"

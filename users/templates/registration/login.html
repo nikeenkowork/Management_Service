@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Регистрация</h2>
+<h2>Вход</h2>
 
 <form method="post">
 
@@ -11,13 +11,13 @@
     {{ form.as_p }}
 
     <button type="submit">
-        Зарегистрировать нового клиента
+        Войти
     </button>
 
 </form>
 
-<a href="{% url 'login' %}">
-    Уже есть аккаунт? Войти
+<a href="{% url 'users:register' %}">
+    Регистрация
 </a>
 
 {% endblock %}

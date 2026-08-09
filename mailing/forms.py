@@ -2,9 +2,12 @@ from django import forms
 from django.utils import timezone
 
 from .models import Mailing
+from mail_messages.models import Message
+from clients.models import Recipient
 
 
 class MailingForm(forms.ModelForm):
+
     class Meta:
         model = Mailing
 
@@ -15,16 +18,12 @@ class MailingForm(forms.ModelForm):
             "recipients",
         )
 
-        localized_fields = (
-            "start_time",
-            "end_time",
-        )
-
         widgets = {
             "start_time": forms.DateTimeInput(
                 format="%Y-%m-%dT%H:%M",
                 attrs={
                     "type": "datetime-local",
+                    "class": "form-control",
                 },
             ),
 
@@ -32,6 +31,7 @@ class MailingForm(forms.ModelForm):
                 format="%Y-%m-%dT%H:%M",
                 attrs={
                     "type": "datetime-local",
+                    "class": "form-control",
                 },
             ),
 
@@ -43,32 +43,47 @@ class MailingForm(forms.ModelForm):
         }
 
 
+    def __init__(
+        self,
+        *args,
+        user=None,
+        **kwargs
+    ):
+        super().__init__(*args, **kwargs)
+
+        if user:
+
+            # только свои сообщения
+            self.fields["message"].queryset = Message.objects.filter(
+                owner=user
+            )
+
+            # только свои получатели
+            self.fields["recipients"].queryset = Recipient.objects.filter(
+                owner=user
+            )
+
+
     def clean(self):
+
         cleaned_data = super().clean()
 
-        start_time = cleaned_data.get(
-            "start_time"
-        )
-
-        end_time = cleaned_data.get(
-            "end_time"
-        )
+        start_time = cleaned_data.get("start_time")
+        end_time = cleaned_data.get("end_time")
 
 
-        if start_time:
+        if start_time and start_time < timezone.now():
 
-            if start_time < timezone.now():
-                raise forms.ValidationError(
-                    "Дата начала рассылки не может быть в прошлом."
-                )
+            raise forms.ValidationError(
+                "Дата начала рассылки не может быть в прошлом."
+            )
 
 
-        if start_time and end_time:
+        if start_time and end_time and start_time >= end_time:
 
-            if start_time >= end_time:
-                raise forms.ValidationError(
-                    "Дата начала должна быть раньше даты окончания."
-                )
+            raise forms.ValidationError(
+                "Дата начала должна быть раньше даты окончания."
+            )
 
 
         return cleaned_data

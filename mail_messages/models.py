@@ -15,6 +15,7 @@ class Message(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        related_name="messages",
         verbose_name="Владелец"
     )
 

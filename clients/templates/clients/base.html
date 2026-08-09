@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Management Service</title>
+</head>
+
+<body>
+
+<nav>
+    <a href="{% url 'clients:list' %}">
+        Клиенты
+    </a>
+
+    <a href="{% url 'mailing:list' %}">
+        Рассылки
+    </a>
+</nav>
+
+<hr>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

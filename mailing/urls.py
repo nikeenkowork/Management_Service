@@ -8,6 +8,7 @@ from .views import (
     MailingDeleteView,
     start_mailing,
     home,
+    StatisticsView,
 )
 
 
@@ -22,15 +23,15 @@ urlpatterns = [
     ),
 
     path(
-        "<int:pk>/",
-        MailingDetailView.as_view(),
-        name="detail",
-    ),
-
-    path(
         "create/",
         MailingCreateView.as_view(),
         name="create",
+    ),
+
+    path(
+        "<int:pk>/",
+        MailingDetailView.as_view(),
+        name="detail",
     ),
 
     path(
@@ -48,10 +49,18 @@ urlpatterns = [
     path(
         "<int:pk>/send/",
         start_mailing,
-        name="send"
+        name="send",
     ),
 
-    path("",
-         home,
-         name="home"),
+    path(
+        "statistics/",
+        StatisticsView.as_view(),
+        name="statistics",
+    ),
+
+    path(
+        "home/",
+        home,
+        name="home",
+    ),
 ]

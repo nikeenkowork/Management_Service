@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.urls import reverse_lazy
-
 from django.views.generic import (
     ListView,
     CreateView,
@@ -14,7 +14,7 @@ from .forms import RecipientForm
 
 class RecipientListView(
     LoginRequiredMixin,
-    ListView
+    ListView,
 ):
     model = Recipient
     template_name = "clients/recipient_list.html"
@@ -28,52 +28,67 @@ class RecipientListView(
 
 class RecipientCreateView(
     LoginRequiredMixin,
-    CreateView
+    CreateView,
 ):
     model = Recipient
     form_class = RecipientForm
     template_name = "clients/recipient_form.html"
-
-    success_url = reverse_lazy(
-        "clients:list"
-    )
+    success_url = reverse_lazy("clients:list")
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
 
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+        cache.delete(
+            f"home_stats_user_{self.request.user.id}"
+        )
+
+        return response
 
 
 class RecipientUpdateView(
     LoginRequiredMixin,
-    UpdateView
+    UpdateView,
 ):
     model = Recipient
     form_class = RecipientForm
     template_name = "clients/recipient_form.html"
-
-    success_url = reverse_lazy(
-        "clients:list"
-    )
+    success_url = reverse_lazy("clients:list")
 
     def get_queryset(self):
         return Recipient.objects.filter(
             owner=self.request.user
         )
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        cache.delete(
+            f"home_stats_user_{self.request.user.id}"
+        )
+
+        return response
 
 
 class RecipientDeleteView(
     LoginRequiredMixin,
-    DeleteView
+    DeleteView,
 ):
     model = Recipient
     template_name = "clients/recipient_confirm_delete.html"
-
-    success_url = reverse_lazy(
-        "clients:list"
-    )
+    success_url = reverse_lazy("clients:list")
 
     def get_queryset(self):
         return Recipient.objects.filter(
             owner=self.request.user
         )
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        cache.delete(
+            f"home_stats_user_{self.request.user.id}"
+        )
+
+        return response

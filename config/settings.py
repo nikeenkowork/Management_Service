@@ -96,6 +96,13 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -148,3 +155,5 @@ AUTH_USER_MODEL = "users.User"
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/mailing/"
 LOGOUT_REDIRECT_URL = "/users/"
+
+

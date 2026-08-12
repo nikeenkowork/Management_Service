@@ -53,7 +53,7 @@ urlpatterns = [
     ),
 
     path(
-        "",
-        RedirectView.as_view(url="/mailing/")
-    ),
+    "",RedirectView.as_view(url="/mailing/"),
+       name="home",
+),
 ]

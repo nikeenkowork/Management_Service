@@ -16,33 +16,19 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 from django.views.generic import RedirectView
 
-
 urlpatterns = [
-    path(
-        "admin/",
-        admin.site.urls
-    ),
-
-    path(
-        "clients/",
-        include("clients.urls")
-    ),
-
-    path(
-        "mail_messages/",
-        include("mail_messages.urls")
-    ),
-
-    path(
-        "mailing/",
-        include("mailing.urls")
-    ),
-
+    path("admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("users/", include("users.urls")),
+    path("clients/", include("clients.urls")),
+    path("mail_messages/", include("mail_messages.urls")),
+    path("mailing/", include("mailing.urls")),
     path(
         "",
-        RedirectView.as_view(url="/mailing/")
+        RedirectView.as_view(url="/mailing/"),
+        name="home",
     ),
 ]

@@ -15,13 +15,9 @@ class Mailing(models.Model):
         (STATUS_FINISHED, "Завершена"),
     ]
 
-    start_time = models.DateTimeField(
-        verbose_name="Дата и время начала отправки"
-    )
+    start_time = models.DateTimeField(verbose_name="Дата и время начала отправки")
 
-    end_time = models.DateTimeField(
-        verbose_name="Дата и время окончания отправки"
-    )
+    end_time = models.DateTimeField(verbose_name="Дата и время окончания отправки")
 
     status = models.CharField(
         max_length=15,

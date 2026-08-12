@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -42,10 +43,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "clients",
     "mail_messages.apps.MessagesConfig",
     "mailing",
+    "users",
 ]
 
 
@@ -95,6 +96,13 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -124,7 +132,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
@@ -141,4 +148,10 @@ EMAIL_HOST_USER = "nikeenko89@gmail.com"
 EMAIL_HOST_PASSWORD = "wwor qjng xsde vhkz"
 
 TIME_ZONE = "Europe/Prague"
-USE_TZ = True
+
+AUTH_USER_MODEL = "users.User"
+
+# Authentication redirects
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/mailing/"
+LOGOUT_REDIRECT_URL = "/users/"

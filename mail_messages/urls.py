@@ -1,11 +1,11 @@
 from django.urls import path
 
 from .views import (
-    MessageListView,
     MessageCreateView,
-    MessageDetailView,
-    MessageUpdateView,
     MessageDeleteView,
+    MessageDetailView,
+    MessageListView,
+    MessageUpdateView,
 )
 
 app_name = "mail_messages"

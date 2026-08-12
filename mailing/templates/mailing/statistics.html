@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Статистика рассылок</h2>
+
+<table border="1">
+
+    <tr>
+        <th>Показатель</th>
+        <th>Количество</th>
+    </tr>
+
+    <tr>
+        <td>Отправлено сообщений</td>
+        <td>{{ total_sent }}</td>
+    </tr>
+
+    <tr>
+        <td>Успешные попытки</td>
+        <td>{{ successful }}</td>
+    </tr>
+
+    <tr>
+        <td>Неуспешные попытки</td>
+        <td>{{ failed }}</td>
+    </tr>
+
+</table>
+
+{% endblock %}

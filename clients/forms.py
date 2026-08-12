@@ -1,4 +1,5 @@
 from django import forms
+
 from .models import Recipient
 
 
@@ -13,10 +14,4 @@ class RecipientForm(forms.ModelForm):
             "comment",
         ]
 
-        widgets = {
-            "comment": forms.Textarea(
-                attrs={
-                    "rows": 4
-                }
-            )
-        }
+        widgets = {"comment": forms.Textarea(attrs={"rows": 4})}

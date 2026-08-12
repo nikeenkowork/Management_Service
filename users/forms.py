@@ -6,10 +6,7 @@ from .models import User
 
 class RegisterForm(UserCreationForm):
 
-    email = forms.EmailField(
-        label="Email",
-        help_text="Введите ваш email"
-    )
+    email = forms.EmailField(label="Email", help_text="Введите ваш email")
 
     class Meta:
         model = User
@@ -29,4 +26,3 @@ class RegisterForm(UserCreationForm):
             user.save()
 
         return user
-    

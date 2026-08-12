@@ -3,17 +3,14 @@ from django.db import models
 
 from .managers import UserManager
 
+
 class User(AbstractUser):
 
     username = None
 
-    email = models.EmailField(
-        unique=True
-    )
+    email = models.EmailField(unique=True)
 
-    is_verified = models.BooleanField(
-        default=False
-    )
+    is_verified = models.BooleanField(default=False)
 
     ROLE_USER = "user"
     ROLE_MANAGER = "manager"
@@ -41,4 +38,3 @@ class User(AbstractUser):
     @property
     def is_manager(self):
         return self.role == self.ROLE_MANAGER
-

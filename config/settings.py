@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "clients",
     "mail_messages.apps.MessagesConfig",
     "mailing",
@@ -155,5 +155,3 @@ AUTH_USER_MODEL = "users.User"
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/mailing/"
 LOGOUT_REDIRECT_URL = "/users/"
-
-

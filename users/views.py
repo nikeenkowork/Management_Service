@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.shortcuts import redirect, render
 
 from .forms import RegisterForm
 
@@ -15,20 +15,11 @@ def register(request):
             user.is_active = True
             user.save()
 
-            messages.success(
-                request,
-                "Регистрация прошла успешно."
-            )
+            messages.success(request, "Регистрация прошла успешно.")
 
             return redirect("login")
 
     else:
         form = RegisterForm()
 
-    return render(
-        request,
-        "users/register.html",
-        {
-            "form": form
-        }
-    )
+    return render(request, "users/register.html", {"form": form})

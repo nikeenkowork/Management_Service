@@ -1,15 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.cache import cache
 from django.urls import reverse_lazy
-from django.views.generic import (
-    ListView,
-    CreateView,
-    UpdateView,
-    DeleteView,
-)
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-from .models import Recipient
 from .forms import RecipientForm
+from .models import Recipient
 
 
 class RecipientListView(
@@ -21,9 +16,7 @@ class RecipientListView(
     context_object_name = "recipients"
 
     def get_queryset(self):
-        return Recipient.objects.filter(
-            owner=self.request.user
-        )
+        return Recipient.objects.filter(owner=self.request.user)
 
 
 class RecipientCreateView(
@@ -40,9 +33,7 @@ class RecipientCreateView(
 
         response = super().form_valid(form)
 
-        cache.delete(
-            f"home_stats_user_{self.request.user.id}"
-        )
+        cache.delete(f"home_stats_user_{self.request.user.id}")
 
         return response
 
@@ -57,16 +48,12 @@ class RecipientUpdateView(
     success_url = reverse_lazy("clients:list")
 
     def get_queryset(self):
-        return Recipient.objects.filter(
-            owner=self.request.user
-        )
+        return Recipient.objects.filter(owner=self.request.user)
 
     def form_valid(self, form):
         response = super().form_valid(form)
 
-        cache.delete(
-            f"home_stats_user_{self.request.user.id}"
-        )
+        cache.delete(f"home_stats_user_{self.request.user.id}")
 
         return response
 
@@ -80,15 +67,11 @@ class RecipientDeleteView(
     success_url = reverse_lazy("clients:list")
 
     def get_queryset(self):
-        return Recipient.objects.filter(
-            owner=self.request.user
-        )
+        return Recipient.objects.filter(owner=self.request.user)
 
     def form_valid(self, form):
         response = super().form_valid(form)
 
-        cache.delete(
-            f"home_stats_user_{self.request.user.id}"
-        )
+        cache.delete(f"home_stats_user_{self.request.user.id}")
 
         return response

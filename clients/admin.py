@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Recipient
 
 
@@ -17,6 +18,4 @@ class RecipientAdmin(admin.ModelAdmin):
         "full_name",
     )
 
-    list_filter = (
-        "owner",
-    )
+    list_filter = ("owner",)

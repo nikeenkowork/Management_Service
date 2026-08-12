@@ -9,9 +9,7 @@ def send_mailing(mailing: Mailing):
     now = timezone.now()
 
     if not (mailing.start_time <= now <= mailing.end_time):
-        raise ValueError(
-            "Сейчас отправка запрещена по времени."
-        )
+        raise ValueError("Сейчас отправка запрещена по времени.")
 
     mailing.status = Mailing.STATUS_STARTED
     mailing.save(update_fields=["status"])

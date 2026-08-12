@@ -18,7 +18,6 @@ from .forms import MailingForm
 from .models import Mailing, MailingAttempt
 from .services import send_mailing
 
-
 CACHE_TIMEOUT = 300
 
 
@@ -33,9 +32,7 @@ class MailingListView(LoginRequiredMixin, ListView):
     context_object_name = "mailings"
 
     def get_queryset(self):
-        return Mailing.objects.filter(
-            owner=self.request.user
-        )
+        return Mailing.objects.filter(owner=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -51,14 +48,12 @@ class MailingListView(LoginRequiredMixin, ListView):
                 "total_mailings": Mailing.objects.filter(
                     owner=self.request.user
                 ).count(),
-
                 "active_mailings": Mailing.objects.filter(
                     owner=self.request.user,
                     start_time__lte=now,
                     end_time__gte=now,
                     status=Mailing.STATUS_STARTED,
                 ).count(),
-
                 "total_recipients": Recipient.objects.filter(
                     owner=self.request.user
                 ).count(),
@@ -81,9 +76,7 @@ class MailingDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "mailing"
 
     def get_queryset(self):
-        return Mailing.objects.filter(
-            owner=self.request.user
-        )
+        return Mailing.objects.filter(owner=self.request.user)
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -126,9 +119,7 @@ class MailingUpdateView(LoginRequiredMixin, UpdateView):
         return kwargs
 
     def get_queryset(self):
-        return Mailing.objects.filter(
-            owner=self.request.user
-        )
+        return Mailing.objects.filter(owner=self.request.user)
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -146,9 +137,7 @@ class MailingDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("mailing:list")
 
     def get_queryset(self):
-        return Mailing.objects.filter(
-            owner=self.request.user
-        )
+        return Mailing.objects.filter(owner=self.request.user)
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -182,17 +171,13 @@ def home(request):
             now = timezone.now()
 
             statistics = {
-                "total_mailings": Mailing.objects.filter(
-                    owner=request.user
-                ).count(),
-
+                "total_mailings": Mailing.objects.filter(owner=request.user).count(),
                 "active_mailings": Mailing.objects.filter(
                     owner=request.user,
                     start_time__lte=now,
                     end_time__gte=now,
                     status=Mailing.STATUS_STARTED,
                 ).count(),
-
                 "total_recipients": Recipient.objects.filter(
                     owner=request.user
                 ).count(),
@@ -229,20 +214,14 @@ class StatisticsView(LoginRequiredMixin, TemplateView):
         statistics = cache.get(cache_key)
 
         if statistics is None:
-            attempts = MailingAttempt.objects.filter(
-                mailing__owner=self.request.user
-            )
+            attempts = MailingAttempt.objects.filter(mailing__owner=self.request.user)
 
             statistics = {
                 "total_sent": attempts.count(),
-
                 "successful": attempts.filter(
                     status=MailingAttempt.STATUS_SUCCESS
                 ).count(),
-
-                "failed": attempts.filter(
-                    status=MailingAttempt.STATUS_FAILED
-                ).count(),
+                "failed": attempts.filter(status=MailingAttempt.STATUS_FAILED).count(),
             }
 
             cache.set(
